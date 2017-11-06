@@ -10,6 +10,7 @@ foreach ($service in $services)
 {
 $servicename = $service.name
 $servicedisplayname  = $service.DisplayName
+$servicestate  = $service.State
 $triggerpath = 'HKLM:\SYSTEM\CurrentControlSet\Services\' + $servicename + '\TriggerInfo\'
 
 if ( $computer -eq "localhost" )
@@ -28,6 +29,7 @@ $servicestartup = $servicestartup.Substring(2)
 $serviceobject = New-Object PSObject
 $serviceobject | Add-Member -type NoteProperty -Name 'Name' -Value $servicename
 $serviceobject | Add-Member -type NoteProperty -Name 'Display Name' -Value $servicedisplayname
+$serviceobject | Add-Member -type NoteProperty -Name 'State' -Value $servicestate
 
 if ($servicestartup.trim() -eq "DISABLED") { $serviceobject | Add-Member -type NoteProperty -Name 'Startup' -Value "Disabled" }
 
