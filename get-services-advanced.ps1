@@ -1,13 +1,9 @@
 function get-services-advanced (
-
       [parameter(Mandatory=$false)]    [String]$Computer = "localhost"
-
 )
 
 {
-
 $services = (gwmi win32_service -ComputerName $computer | select name, displayname, state, startmode | sort startmode, name)
-
 $servicetable = @()
 
 foreach ($service in $services)
@@ -62,9 +58,7 @@ if ( $trigger -eq $True )
 else 						{ $serviceobject | Add-Member -type NoteProperty -Name 'Startup' -Value "Automatic"}
 
 }
-
 $servicetable += $serviceobject
 }
 $servicetable
-
 }
